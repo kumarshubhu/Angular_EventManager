@@ -1,0 +1,17 @@
+<h1>Event Manager </h1>
+
+<nav class="navbar navbar-dark bg-primary navbar navbar-expand-lg">
+  <a class="navbar-brand" routerLink='/home'>Public Events</a>
+
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <div *ngIf="!details.isLoginVisible ">
+      <a class="navbar-brand" [routerLink]="[ '/login' ]">login</a>
+      <a #signup class="navbar-brand" [routerLink]="[ '/signup' ]">signup</a>
+
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,53 @@
+<h4 style='text-align: center;color:green'>Upcoming Events</h4>
+<table class="table table">
+  <thead>
+    <tr>
+      <th style="text-align:centre">Topic</th>
+      <th style="text-align:centre">place</th>
+      <th style="text-align:centre">Date</th>
+      <th style="text-align:centre">Organiser</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor='let e of upcomingEvents'>
+      <ng-container *ngIf="e.type=='public'">
+        <tr routerLink='/eventdetails/{{e.id}}'>
+          <td>{{e.topic}}</td>
+          <td>{{e.room}}</td>
+          <td>{{e.date|date}}</td>
+          <td>{{e.organiser}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+  </tbody>
+</table>
+<hr>
+
+<h4 style='text-align: center;color:red'>Past Events</h4>
+
+
+<table class="table table">
+  <thead>
+    <tr>
+      <th style="text-align:centre">Topic</th>
+      <th style="text-align:centre">Place</th>
+      <th style="text-align:centre">Date</th>
+      <th style="text-align:centre">Organiser</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor='let e of pastEvents'>
+      <ng-container *ngIf="e.type=='public'">
+        <tr routerLink='/eventdetails/{{e.id}}'>
+          <td>{{e.topic}}</td>
+          <td>{{e.room}}</td>
+          <td>{{e.date|date}}</td>
+          <td>{{e.organiser}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+  </tbody>
+</table>
+<router-outlet></router-outlet>

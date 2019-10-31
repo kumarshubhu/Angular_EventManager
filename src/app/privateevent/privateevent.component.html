@@ -1,0 +1,139 @@
+<br>
+<h4  style="color:green;text-align: center">Welcome<br> {{userName}}</h4>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+  <ul class="navbar-nav mr-auto">
+  
+    <li class="nav-item active">
+      <h5> <a data-toggle="modal" data-target="#largeModal1" style="color:green;cursor: pointer;" class="nav-link">Create Event</a></h5>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <h5> <a style="color:red;margin-right:50px;cursor: pointer;" class="nav-link" (click)='onClickSignout()'>signout</a> </h5>
+    </li>
+  </ul>
+</nav>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>Organiser</th>
+      <th>Topic</th>
+      <th>Date</th>
+      <th>Room</th>
+      <th>EDIT</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor='let e of event'>
+      <ng-container *ngIf='e.userid==userid'>
+
+        <tr class="del">
+          <td routerLink='/eventdetails/{{e.id}}'>{{e.organiser}} </td>
+          <td>{{e.topic}}</td>
+          <td>{{e.date|date:'medium'}}</td>
+          <td>{{e.room}}</td>
+          <td><button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#largeModal"
+              (click)='onClickUpdateEvent(e)'>EDIT</button></td>
+          <td >
+            <!-- <mat-checkbox  #check  [(ngModel)]="checked" (click)='onClickAddEventsToBeDeleted(e)'></mat-checkbox> -->
+            <input #check type="checkbox" (click)='onClickAddEventsToBeDeleted(e)'>
+          </td>
+        </tr>
+
+      </ng-container>
+    </ng-container>
+  </tbody>
+</table>
+<button style="float:right;font-size: 10px;margin-right: 30px;" class="btn btn-sm btn-danger" (click)='onClickDeleteEvents()'>
+  <h6>Delete</h6>
+</button>
+
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+      </div>
+       
+      <div *ngIf="editEvent" class="modal-body">
+        
+        <!-- <table style="width:20px;">
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>Invites</th>
+              <th>Date</th>
+              <th>Room</th>
+            </tr>
+          </thead> -->
+          <!-- <tbody>
+            <tr>
+              <td><input value={{editEvent.topic}}></td>
+              <td><input value={{editEvent.invites}}></td>
+              <td><input type="date" value={{editEvent.date}}></td>
+              <td><input value={{editEvent.room}}></td>
+            </tr>
+
+
+          </tbody>
+        </table> -->
+        <form [formGroup]='editGroup' (ngSubmit)='editEventMethod()'>
+        <input formControlName='Organiser' type="text" >
+        <input formControlName='Topic' type="text">
+        <input formControlName='Date'  type="date" >
+        <input formControlName='Room' type="text" >
+        <input type="submit" class="btn btn-default" value="update">
+      </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <input type="submit" class="btn btn-default" value="close">
+     
+      </div> -->
+   
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="largeModal1" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Create Event</h4>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]='createGroup' (ngSubmit)='createEvent()'>
+          
+          <!-- <input formControlName='Id' type='text' placeholder="id"><br><br> -->
+<!--           
+          <mat-form-field >
+            <input formControlName='Date' matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field> -->
+          <input formControlName='Date' type='date'><br><br>
+          
+          <input formControlName='Topic' type='text' placeholder="Topic"><br><br>
+          
+          <input formControlName='Organiser' type='text' placeholder="Your Name"><br><br>
+          
+          <input formControlName='Room' type='text' placeholder="Room"><br><br>
+        
+          <input formControlName='Invites' type='text' placeholder="peoples to be invited"><br><br>
+          Type:
+          <select formControlName='Type' >
+            <option >public</option>
+            <option >private</option>
+          </select><br><br>
+          
+          <input formControlName='Userid' type='text' placeholder="your registered userid">
+          <button style="float: right" type="submit"  class="btn btn-default">Save</button>
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
